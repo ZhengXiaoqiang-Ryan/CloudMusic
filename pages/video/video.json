@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "SearchComp": "/components/SearchComp/SearchComp"
+  },
+  "navigationBarTitleText": "视频页",
+  "enablePullDownRefresh": true
+}

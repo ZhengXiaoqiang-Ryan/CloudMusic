@@ -1,0 +1,7 @@
+<view class="header">
+    <image class="before-img" src="/static/images/video/video.jpg"></image>
+    <view class="search" bindtap="toSearch">
+      搜索音乐
+    </view>
+    <image class="after-img" src="/static/images/logo.png"></image>
+</view>
