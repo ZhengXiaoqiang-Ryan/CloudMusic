@@ -1,17 +1,16 @@
-// pages/playlist/playlist.js
 import request from '../../utils/request'
 import PubSub from 'pubsub-js'
-Page({
 
+Page({
   /**
    * 页面的初始数据
    */
   data: {
-    listid:'',//歌单id
-    playList:[],//歌曲对象
-    listImg:'',//歌单图片
-    discribe:'',//歌单描述
-    index:0,//下标
+    listid: '',//歌单id
+    playList: [],//歌曲对象
+    listImg: '',//歌单图片
+    describe: '',//歌单描述
+    index: 0,//下标
   },
 
   /**
@@ -28,12 +27,12 @@ Page({
     this.getPlayList(listid);
 
     //订阅来自songDetail页面发布的消息
-    PubSub.subscribe('switchMusic',(msg,type) => {
-      let {playList,index} = this.data;
-      if(type === 'pre'){//上一首
+    PubSub.subscribe('switchType', (msg, type) => {
+      let { playList, index } = this.data;
+      if (type === 'prev') {//上一首
         (index === 0) && (index = playList.length);
         index -= 1;
-      }else{//下一首
+      } else {//下一首
         (index === playList.length - 1) && (index = -1);
         index += 1;
       }
@@ -45,32 +44,32 @@ Page({
 
       let musicId = playList[index].id;
       //将音乐id回传给songDetail页面
-      PubSub.publish('musicId',musicId);
+      PubSub.publish('musicId', musicId);
     })
   },
 
   //获取歌单所对应的歌曲
-  async getPlayList(listid){
-    let playListData = await request("/playlist/detail",{id: listid});
+  async getPlayList(listid) {
+    let playListData = await request("/playlist/detail", { id: listid });
     this.setData({
       playList: playListData.playlist.tracks,
       listImg: playListData.playlist.coverImgUrl,
-      discribe: playListData.playlist.name
+      describe: playListData.playlist.name
     })
   },
 
-    //跳转至songDetail页面
-    toSongDetail(event){
-      let {song,index} = event.currentTarget.dataset;
-  
-      this.setData({
-        index: index
-      })
-      //路由跳转传参：query参数
-      wx.navigateTo({
-        url: '/pages/songDetail/songDetail?song=' + song.id
-      })
-    },
+  //跳转至songDetail页面
+  toSongDetail(event) {
+    let { song, index } = event.currentTarget.dataset;
+
+    this.setData({
+      index: index
+    })
+    //路由跳转传参：query参数
+    wx.navigateTo({
+      url: '/songPackage/pages/songDetail/songDetail?musicId=' + song.id
+    })
+  },
 
   /**
    * 生命周期函数--监听页面初次渲染完成

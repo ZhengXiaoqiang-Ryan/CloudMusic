@@ -1,16 +1,17 @@
-<!--pages/playlist/playlist.wxml-->
-<view class="listSongContainer">
+<view class="song-list-container">
   <!-- 头部 -->
   <view class="header">
     <image src="{{listImg}}"></image>
-    <text class="discribe">{{discribe}}</text>
+    <text class="describe">{{describe}}</text>
   </view>
+
   <!-- 列表区域 -->
   <view class="ListContainer">
     <view class="listHeader">
       <text>播放全部</text>
       <text class="changeMore">多选</text>
     </view>
+
     <!-- 歌曲 -->
     <scroll-view scroll-y="true" class="listScroll">
       <view class="scrollItem" wx:for="{{playList}}" wx:key="id" data-index="{{index}}" data-song="{{item}}" bindtap="toSongDetail">
